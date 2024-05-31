@@ -1,3 +1,3 @@
 ### Gemstone Price Prediction
 
-Dataset Link : [Dataset link](https://www.kaggle.com/competitions/playground-series-s3e8/)
+Dataset Link : [https://www.kaggle.com/competitions/playground-series-s3e8/](https://www.kaggle.com/competitions/playground-series-s3e8/)
