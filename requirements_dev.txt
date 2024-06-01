@@ -5,6 +5,8 @@ scikit-learn
 mlflow
 dvc
 seaborn
+statsmodels
+xgboost
 
 pytest==7.1.3
 tox==3.25.1
