@@ -46,11 +46,12 @@ def evaluate_model(X_train,y_train,X_test,y_test,models):
         customexception(e,sys)  
 
 @ensure_annotations
-def read_yaml(path):
+def read_yaml(path_to_yaml):
     try:
-        with open(path) as yaml_file:
-            content = yaml.safe_load(path)
-    
+        with open(path_to_yaml) as yaml_file:
+            content = yaml.safe_load(yaml_file)
+            logging.info(f"yaml file: {path_to_yaml} loaded successfully")
+            return ConfigBox(content)
     except BoxValueError:
         raise ValueError("YAML file is empty")
     

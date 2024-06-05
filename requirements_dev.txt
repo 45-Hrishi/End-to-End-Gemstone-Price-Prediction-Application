@@ -11,6 +11,8 @@ python-box==6.0.2
 pyYAML
 types-PyYAML
 ensure==1.0.2
+kaggle
+python-dotenv
 
 pytest==7.1.3
 tox==3.25.1
