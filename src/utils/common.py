@@ -11,6 +11,7 @@ import joblib
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
+import pandas as pd
 
 @ensure_annotations
 def save_object(file_path,obj):
@@ -55,6 +56,15 @@ def read_yaml(path_to_yaml):
     except BoxValueError:
         raise ValueError("YAML file is empty")
     
+    except Exception as e:
+        raise customexception(e,sys)
+
+@ensure_annotations
+def read_csv(path_to_csv):
+    try:
+        df = pd.read_csv(path_to_csv)
+        logging.info("{path_to_csv} file read successfully")
+        return df
     except Exception as e:
         raise customexception(e,sys)
 
