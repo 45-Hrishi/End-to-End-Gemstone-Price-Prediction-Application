@@ -16,35 +16,39 @@ import pandas as pd
 @ensure_annotations
 def save_object(file_path,obj):
     try:
+        logging.info(f"saving model at {file_path}")
         #getting the name of directory from file_path and then create it.
         dir_path = os.path.dirname(file_path)
         os.makedirs(dir_path,exist_ok=True)
         
         with open(file_path,'wb') as file_obj:
             pickle.dump(obj,file_obj)
-            
+        logging.info("model saved successfully")
     except Exception as e:
         raise customexception(e,sys)
 
 @ensure_annotations
-def evaluate_model(X_train,y_train,X_test,y_test,models):
+def evaluate_model(X_train,y_train,X_test,y_test,models:dict):
+    # print(models)
     try:
+        logging.info("Model selection started")
         report = {}
+
         for i in range(len(models)):
-            model = list(model.values())[i]
-            model.fit(X_train,y_train)
-            
-            y_pred = model.predict(X_test)
+            logging.info(f"Model {list(models.keys())[i]} started")
+            model = list(models.values())[i]
+            model_obj = model.fit(X_train,y_train)
+
+            y_pred = model_obj.predict(X_test)
             #evaluation of model
-            r2_score = r2_score(y_test,y_pred)
-            
-            model_name = list(model.keys())[i]
-            report[model_name] = r2_score
+            score = r2_score(y_test,y_pred)
+            report[model] = (score)
+            logging.info(f"Model {list(models.keys())[i]} has the accuracy of {score}")
         return report
             
     except Exception as e:
         logging.info("Exception occured while evaluating model")
-        customexception(e,sys)  
+        raise customexception(e,sys)  
 
 @ensure_annotations
 def read_yaml(path_to_yaml):
@@ -67,6 +71,21 @@ def read_csv(path_to_csv):
         return df
     except Exception as e:
         raise customexception(e,sys)
+
+@ensure_annotations
+def get_transform_data(path_to_folder):
+    train_transform = pd.read_csv(os.path.join(path_to_folder,"transform_train.csv")) 
+    test_transform = pd.read_csv(os.path.join(path_to_folder,"transform_test.csv")) 
+    
+    X_train = train_transform.drop('price',axis=1)
+    y_train = train_transform['price']
+    
+    X_test = test_transform.drop('price',axis=1)
+    y_test = test_transform['price']
+    
+    return X_train,y_train,X_test,y_test
+    
+    
 
 @ensure_annotations
 def create_directories(directories_path:list,verbose=True):

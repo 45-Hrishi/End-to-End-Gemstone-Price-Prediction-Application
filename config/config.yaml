@@ -13,4 +13,7 @@ data_transformation:
   preprocessed_data_files: artifacts/data_transformation/preprocessed_data
   transform_data_files: artifacts/data_transformation/transform_data
 
+model_training:
+  root_dir: artifacts/model_training
+  model_path: artifacts/model_training/best_model.h5
 
