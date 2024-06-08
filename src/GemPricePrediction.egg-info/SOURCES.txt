@@ -21,7 +21,9 @@ src/exception/exception.py
 src/logger/__init__.py
 src/logger/logger.py
 src/pipeline/__init__.py
-src/pipeline/prediction_pipeline.py
-src/pipeline/training_pipeline.py
+src/pipeline/stage_01_data_ingestion.py
+src/pipeline/stage_02_data_transformation.py
+src/pipeline/stage_03_model_trainer.py
+src/pipeline/stage_04_model_evaluation.py
 src/utils/__init__.py
 src/utils/common.py
