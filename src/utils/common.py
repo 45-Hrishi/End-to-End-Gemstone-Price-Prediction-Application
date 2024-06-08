@@ -67,7 +67,7 @@ def read_yaml(path_to_yaml):
 def read_csv(path_to_csv):
     try:
         df = pd.read_csv(path_to_csv)
-        logging.info("{path_to_csv} file read successfully")
+        logging.info(f"{path_to_csv} file read successfully")
         return df
     except Exception as e:
         raise customexception(e,sys)

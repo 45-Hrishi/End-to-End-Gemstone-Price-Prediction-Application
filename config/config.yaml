@@ -17,3 +17,6 @@ model_training:
   root_dir: artifacts/model_training
   model_path: artifacts/model_training/best_model.h5
 
+model_evaluation: 
+  root_dir: artifacts/model_evaluation
+  metrics_path: artifacts/model_evaluation/metrics.json
