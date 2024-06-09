@@ -13,8 +13,28 @@ import mlflow
 class ModelEvaluation:
     def __init__(self,config:ModelEvaluationConfig):
         self.config = config
+        
+    def eval_metrics(self,y_pred,y_test):
+        try:
+            mse = mean_squared_error(y_test,y_pred)
+            logging.info(f"Mean squared error of model is: {mse}")
+            
+            mae = mean_absolute_error(y_test,y_pred)
+            logging.info(f"Mean absolute error of model is: {mae}")
+            
+            score_r2 = r2_score(y_test,y_pred)
+            logging.info(f"r2 score of model is: {score_r2}")
+            
+            logging.info("Storing metrics into json file")
+            metrics = {"MSE":mse,"MAE":mae,"r2 score":score_r2}
+            json_filepath = Path(self.config.metrics_json_path)
+            save_json(json_filepath,metrics)
+            
+            return mse,mae,score_r2
+        except Exception as e:
+            raise customexception(e,sys)
     
-    def evaluate(self):
+    def model_evaluate(self):
         try:
             logging.info("Loading the model")
             model_path = self.config.trained_model_path
@@ -30,19 +50,7 @@ class ModelEvaluation:
             logging.info("Evaluating data")
             y_pred = model_obj.predict(X_test)
             
-            
-            mse = mean_squared_error(y_test,y_pred)
-            logging.info(f"Mean squared error of model is: {mse}")
-            mae = mean_absolute_error(y_test,y_pred)
-            logging.info(f"Mean absolute error of model is: {mae}")
-            score_r2 = r2_score(y_test,y_pred)
-            logging.info(f"r2 score of model is: {score_r2}")
-            
-            logging.info("Storing metrics into json file")
-            metrics = {"MSE":mse,"MAE":mae,"r2 score":score_r2}
-            json_filepath = Path(self.config.metrics_json_path)
-            print(json_filepath)
-            save_json(json_filepath,metrics)
+            mse,mae,score_r2 = self.eval_metrics(y_pred,y_test)
         except Exception as e:
             raise customexception(e,sys)
         

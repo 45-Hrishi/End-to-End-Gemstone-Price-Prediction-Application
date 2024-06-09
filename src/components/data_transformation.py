@@ -71,10 +71,6 @@ class DataTransformation:
                 ("Categorical Pipeline",categorical_pipline,cat_cols)
             ])
 
-            preprocessed_model_path = os.path.join(self.config.preprocessed_data_files,"preprocessor.pkl")
-            logging.info(f"Saving preprocessor object at {preprocessed_model_path}")
-            save_object(preprocessed_model_path,preprocessor)
-
             logging.info("Data preprocessing completed, preprocessing object return successfully")
             
             return preprocessor
@@ -98,6 +94,10 @@ class DataTransformation:
             
             X_train = preprocessor_obj.fit_transform(X_train)
             X_test = preprocessor_obj.transform(X_test)
+            
+            preprocessed_model_path = os.path.join(self.config.preprocessed_data_files,"preprocessor.pkl")
+            logging.info(f"Saving preprocessor object at {preprocessed_model_path}")
+            save_object(preprocessed_model_path,preprocessor_obj)
             
             columns = list(dataframe.columns)
             print(columns)
