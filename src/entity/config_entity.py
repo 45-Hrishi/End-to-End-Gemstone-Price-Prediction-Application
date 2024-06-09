@@ -27,3 +27,7 @@ class ModelEvaluationConfig:
     test_data_path: Path
     metrics_json_path: Path
     
+@dataclass(frozen=True)
+class ModelPredictionConfig:
+    preprocessor_obj_path: Path
+    model_path: Path

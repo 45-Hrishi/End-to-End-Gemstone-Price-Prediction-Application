@@ -1,7 +1,9 @@
 from constants import CONFIG_FILE_PATH
 from utils.common import create_directories,read_yaml
 from entity.config_entity import (DataIngestionConfig,DataTransformationConfig,
-                                  ModelTrainingConfig,ModelEvaluationConfig)
+                                  ModelTrainingConfig,ModelEvaluationConfig,ModelPredictionConfig)
+import os
+
 class ConfigurationManager:
     def __init__(self,config_filepath=CONFIG_FILE_PATH):
         self.config = read_yaml(config_filepath)
@@ -53,3 +55,16 @@ class ConfigurationManager:
             metrics_json_path=model_evaluation_config.metrics_path
         )
         return evaluation_config
+    
+    def get_prediction_config(self)->ModelPredictionConfig:
+        training_config = self.config.model_training
+        datatransform_config = self.config.data_transformation
+        
+        preprocessor_path = os.path.join(datatransform_config.preprocessed_data_files,"preprocessor.pkl")
+        
+        prediction_config = ModelPredictionConfig(
+            preprocessor_obj_path=preprocessor_path,
+            model_path=training_config.model_path
+        )
+        
+        return prediction_config
