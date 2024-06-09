@@ -1,7 +1,7 @@
 import os
 import sys
 from pathlib import Path
-from utils.common import create_directories,read_csv
+from utils.common import create_directories,read_csv,save_object
 from dataclasses import dataclass
 from exception.exception import customexception
 from logger.logger import logging
@@ -70,6 +70,11 @@ class DataTransformation:
                 ("Numeric Pipeline",numeric_pipeline,nume_cols),
                 ("Categorical Pipeline",categorical_pipline,cat_cols)
             ])
+
+            preprocessed_model_path = os.path.join(self.config.preprocessed_data_files,"preprocessor.pkl")
+            logging.info(f"Saving preprocessor object at {preprocessed_model_path}")
+            save_object(preprocessed_model_path,preprocessor)
+
             logging.info("Data preprocessing completed, preprocessing object return successfully")
             
             return preprocessor

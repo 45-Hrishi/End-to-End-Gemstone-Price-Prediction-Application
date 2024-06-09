@@ -10,8 +10,8 @@ data_ingestion:
 data_transformation:
   root_dir: artifacts/data_transformation
   unzip_data_files: artifacts/data_ingestion/train.csv
-  preprocessed_data_files: artifacts/data_transformation/preprocessed_data
-  transform_data_files: artifacts/data_transformation/transform_data
+  preprocessed_data_files: artifacts/data_transformation/preprocessed
+  transform_data_files: artifacts/data_transformation/transformed
 
 model_training:
   root_dir: artifacts/model_training
