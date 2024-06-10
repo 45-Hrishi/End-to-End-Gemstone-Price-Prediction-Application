@@ -1,0 +1,13 @@
+{
+    "columns": {
+      "carat": "float",
+      "depth": "float",
+      "table": "float",
+      "x": "float",
+      "y": "float",
+      "z": "float",
+      "color": "str",
+      "cut": "str",
+      "clarity": "str"
+    }
+  }
