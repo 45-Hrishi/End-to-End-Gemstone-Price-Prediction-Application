@@ -61,7 +61,7 @@ class ModelEvaluation:
                 mlflow.log_metric("r2-score",score_r2)
                 
                 # logging the model
-                mlflow.sklearn.log_model("Model",model_obj)
+                mlflow.sklearn.log_model(model_obj,"Model")
                 
         except Exception as e:
             raise customexception(e,sys)
