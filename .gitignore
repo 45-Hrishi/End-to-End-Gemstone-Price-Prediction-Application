@@ -4,3 +4,4 @@ project_structure_dummy.txt
 .kaggle
 .env
 artifacts
+mlruns

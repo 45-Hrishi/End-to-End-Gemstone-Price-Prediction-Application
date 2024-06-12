@@ -16,20 +16,27 @@ class ModelEvaluation:
         
     def eval_metrics(self,y_pred,y_test):
         try:
-            mse = mean_squared_error(y_test,y_pred)
-            logging.info(f"Mean squared error of model is: {mse}")
-            
-            mae = mean_absolute_error(y_test,y_pred)
-            logging.info(f"Mean absolute error of model is: {mae}")
-            
-            score_r2 = r2_score(y_test,y_pred)
-            logging.info(f"r2 score of model is: {score_r2}")
-            
-            logging.info("Storing metrics into json file")
-            metrics = {"MSE":mse,"MAE":mae,"r2 score":score_r2}
-            json_filepath = Path(self.config.metrics_json_path)
-            save_json(json_filepath,metrics)
-            
+            with mlflow.start_run():
+                mse = mean_squared_error(y_test,y_pred)
+                logging.info(f"Mean squared error of model is: {mse}")
+                
+                mae = mean_absolute_error(y_test,y_pred)
+                logging.info(f"Mean absolute error of model is: {mae}")
+                
+                score_r2 = r2_score(y_test,y_pred)
+                logging.info(f"r2 score of model is: {score_r2}")
+                
+                logging.info("Storing metrics into json file")
+                metrics = {"MSE":mse,"MAE":mae,"r2 score":score_r2}
+                json_filepath = Path(self.config.metrics_json_path)
+                save_json(json_filepath,metrics)
+                
+                #mlflow logging metrics
+                mlflow.log_metric("MSE",mse)
+                mlflow.log_metric("MAE",mae)
+                mlflow.log_metric("r2-score",score_r2)
+                
+                
             return mse,mae,score_r2
         except Exception as e:
             raise customexception(e,sys)
