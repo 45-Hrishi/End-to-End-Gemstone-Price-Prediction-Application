@@ -31,9 +31,11 @@ class DataIngestion:
             api.competition_download_files('playground-series-s3e8', path=root_dir)
             
             for _file in os.listdir("artifacts/data_ingestion"):
-                current_path = os.path.join("artifacts/data_ingestion",_file)
-                new_path= os.path.join("artifacts/data_ingestion","data.zip")
-                os.rename(current_path,new_path)
+                if _file == "playground-series-s3e8.zip":
+                    current_path = os.path.join("artifacts/data_ingestion",_file)
+                    new_path= os.path.join("artifacts/data_ingestion","data.zip")
+                    os.rename(current_path,new_path)
+                    break
                 
             logging.info(f"Downloading data into the {download_dir}")
         except Exception as e:
