@@ -10,6 +10,9 @@ from utils.common import create_directories,read_yaml,load_object,read_csv,save_
 from entity.config_entity import ModelEvaluationConfig
 import mlflow
 import mlflow.sklearn
+from urllib.parse import urlparse
+import dagshub
+from dotenv import load_dotenv
 
 class ModelEvaluation:
     def __init__(self,config:ModelEvaluationConfig):
@@ -37,6 +40,13 @@ class ModelEvaluation:
     
     def model_evaluate(self):
         try:
+            
+            os.environ['MLFLOW_TRACKING_URI'] = os.getenv('MLFLOW_TRACKING_URI')
+            os.environ['MLFLOW_TRACKING_USERNAME'] = os.getenv('MLFLOW_TRACKING_USERNAME')
+            os.environ['MLFLOW_TRACKING_PASSWORD'] = os.getenv('MLFLOW_TRACKING_PASSWORD')
+            mlflow.set_tracking_uri(os.environ['MLFLOW_TRACKING_URI'])
+            # dagshub.init(repo_owner='45-Hrishi', repo_name='GemStonePricePrediction', mlflow=True)
+            
             with mlflow.start_run():
                 logging.info("Loading the model")
                 model_path = self.config.trained_model_path
@@ -60,8 +70,10 @@ class ModelEvaluation:
                 mlflow.log_metric("MAE",mae)
                 mlflow.log_metric("r2-score",score_r2)
                 
-                # logging the model
-                mlflow.sklearn.log_model(model_obj,"Model")
+                tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+                if tracking_url_type_store != 'file':
+                    # logging the model
+                    mlflow.sklearn.log_model(model_obj,"Model")
                 
         except Exception as e:
             raise customexception(e,sys)
