@@ -11,7 +11,6 @@ from entity.config_entity import ModelEvaluationConfig
 import mlflow
 import mlflow.sklearn
 from urllib.parse import urlparse
-import dagshub
 from dotenv import load_dotenv
 
 class ModelEvaluation:
