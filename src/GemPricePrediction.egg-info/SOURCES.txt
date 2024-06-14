@@ -11,6 +11,7 @@ src/components/data_ingestion.py
 src/components/data_transformation.py
 src/components/model_evaluation.py
 src/components/model_trainer.py
+src/components/prediction.py
 src/config/__init__.py
 src/config/configuration.py
 src/constants/__init__.py
@@ -27,3 +28,4 @@ src/pipeline/stage_03_model_trainer.py
 src/pipeline/stage_04_model_evaluation.py
 src/utils/__init__.py
 src/utils/common.py
+src/utils/pred_validation.py
