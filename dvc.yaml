@@ -1,0 +1,42 @@
+stages:
+  data_ingestion:
+    cmd: python src/pipeline/stage_01_data_ingestion.py
+    deps: 
+      - src/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs: 
+      - artifacts/data_ingestion/test.csv
+      - artifacts/data_ingestion/train.csv
+
+  data_transformation:
+    cmd: python src/pipeline/stage_02_data_transformation.py
+    deps: 
+      - src/pipeline/stage_02_data_transformation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/train.csv
+    outs: 
+      - artifacts/data_transformation/preprocessed/preprocessed_data.csv
+      - artifacts/data_transformation/preprocessed/preprocessor.pkl
+      - artifacts/data_transformation/transformed/transform_test.csv
+      - artifacts/data_transformation/transformed/transform_train.csv
+
+  model_training:
+    cmd: python src/pipeline/stage_03_model_trainer.py
+    deps: 
+      - src/pipeline/stage_03_model_trainer.py
+      - config/config.yaml 
+      - artifacts/data_transformation/transformed/transform_test.csv
+      - artifacts/data_transformation/transformed/transform_train.csv
+    outs: 
+      - artifacts/model_training/best_model.h5
+
+  model_evaluation:
+    cmd: python src/pipeline/stage_04_model_evaluation.py
+    deps: 
+      - src/pipeline/stage_04_model_evaluation.py
+      - config/config.yaml 
+      - artifacts/model_training/best_model.h5
+      - artifacts/data_transformation/transformed/transform_test.csv
+    metrics: 
+    - artifacts/model_evaluation/metrics.json
+        
