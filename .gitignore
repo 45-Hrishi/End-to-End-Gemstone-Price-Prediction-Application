@@ -5,3 +5,4 @@ project_structure_dummy.txt
 .env
 artifacts
 mlruns
+templates/form2.html

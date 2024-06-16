@@ -4,12 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gemstone Price Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            width: 100%;
+            padding: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            color: #fff;
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        main h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Welcome to Stonepred</h1>
-    <p>Verify stone price before buy it...</p>
-    <h3>Put all values here and get the exact price of your stone.</h3>
+    <header>
+        <h1>Stonepred</h1>
+    </header>
+    
+    <main>
+        <h2>Welcome to Gemstone Price Prediction</h2>
+        <p>Verify stone price before buying it...</p>
+        <h3>Put all values here and get the exact price of your stone.</h3>
+        <p>Our advanced prediction algorithm ensures that you get the most accurate pricing for your gemstones. Whether you are a jeweler, collector, or buyer, our tool will help you make informed decisions.</p>
+        <a href="{{url_for('predict_datapoint')}}" class="btn">Predict Prices</a>
+    </main>
+    
+    <footer>
+        &copy; 2024 Stonepred. All rights reserved.
+    </footer>
 
 </body>
 </html>
