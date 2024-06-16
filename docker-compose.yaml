@@ -1,0 +1,8 @@
+version: '3'
+services:
+  application:
+    build: .
+    image: airflow_gemstone_prediction
+    container_name: gemstone_prediction
+    ports:
+      - "8080:8080"
